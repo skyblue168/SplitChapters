@@ -1,0 +1,213 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Taiwan) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL
+#pragma code_page(950)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 1\r\n"
+    "#pragma code_page(950)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\SplitChapters.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.cht\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\SplitChapters.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG  0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "關於 SplitChapters"
+FONT 9, "新細明體"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "SplitChapters Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2012",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "確定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_SPLITCHAPTERS_DIALOG DIALOGEX 0, 0, 152, 103
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "章節切分"
+FONT 9, "新細明體", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,117,27,28,14
+    EDITTEXT        IDC_EDFILEPATH,7,7,105,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BTNBROWSE,118,7,27,14
+    LTEXT           "章名長",IDC_STATIC,7,28,25,8
+    LTEXT           "標題長",IDC_STATIC,7,44,25,8
+    EDITTEXT        IDC_EDCHAPLEN,37,25,32,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDTITLELEN,37,41,32,14,ES_AUTOHSCROLL
+    CONTROL         "補滿",IDC_CHKCPNAME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,82,28,29,10
+    EDITTEXT        IDC_EDPGNO,78,41,32,14,ES_AUTOHSCROLL
+    CONTROL         "UTF8",IDC_CHKUTF8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,63,34,10
+    CONTROL         "Unicode",IDC_CHKUNICODE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,42,64,42,10
+    CONTROL         "GB",IDC_CHKGB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,86,64,27,10
+    CONTROL         "定長",IDC_CHKFIXLENGTH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,63,29,10
+    EDITTEXT        IDC_EDBEGIN,7,82,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDEND,54,82,40,14,ES_AUTOHSCROLL
+    CONTROL         "去同章節",IDC_CHKSAMECHAP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,83,48,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040404B0"
+        BEGIN
+            VALUE "FileDescription", "SplitChapters MFC Application"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "SplitChapters"
+            VALUE "LegalCopyright", "Copyright (C) 2012"
+            VALUE "OriginalFilename", "SplitChapters.EXE"
+            VALUE "ProductName", "SplitChapters Application"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x404, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_SPLITCHAPTERS_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 145
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 96
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "關於 SplitChapters(&A)..."
+END
+
+#endif    // Chinese (Taiwan) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
+#ifdef _WIN32
+LANGUAGE 4, 1
+#pragma code_page(950)
+#endif //_WIN32
+#include "res\SplitChapters.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.cht\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
