@@ -258,6 +258,44 @@ BOOL CSplitChaptersDlg::IsChapterLine(CString &sLine, CString &sChapter)
 	return rc;
 }
 
+BOOL CSplitChaptersDlg::readFile2Buf(FILE* in)
+{
+	BOOL rc = FALSE;
+	int ret;
+
+	if(in == NULL) return rc;
+
+	m_ib.bufgrow(READ_UNIT);
+	while ((ret = fread(m_ib.data + m_ib.size, 1, m_ib.asize - m_ib.size, in)) > 0) {
+		m_ib.size += ret;
+		m_ib.bufgrow(m_ib.size + READ_UNIT);
+	}
+	if(m_ib.isUTF8Head())
+		m_IsUTF8 = TRUE;
+	if(m_ib.size > 0)
+		rc = TRUE;
+
+	return rc;
+}
+
+FILE* CSplitChaptersDlg::openChapFile(FILE* fptag, int nChap)
+{
+	CString sChapFName;
+
+	if(fptag != NULL){
+		fclose(fptag);
+		fptag = NULL;
+	}
+
+	if(!m_bFullChpName)
+		sChapFName.Format( _T("%s\\%d.txt"), m_DirPath, nChap );
+	else
+		sChapFName.Format( _T("%s\\%04d.txt"), m_DirPath, nChap );
+
+	return _tfopen(sChapFName, _T("wt, ccs=UNICODE"));
+}
+
+
 void CSplitChaptersDlg::OnOK() 
 {
 	// TODO: Add extra validation here
@@ -273,12 +311,7 @@ void CSplitChaptersDlg::OnOK()
 	UpdateData();
 
 	::CreateDirectory(m_DirPath, NULL);
-
-	if(m_IsUTF8 == TRUE) {
-		m_srcfp = _tfopen(m_FilePath, _T("r,css=utf-8"));
-	}
-	else
-		m_srcfp = _tfopen(m_FilePath, _T("rt"));
+	m_srcfp = _tfopen(m_FilePath, _T("rt"));
 
 	if(m_srcfp == NULL) {
 		AfxMessageBox(_T("開啟書檔失敗!"));
@@ -293,39 +326,32 @@ void CSplitChaptersDlg::OnOK()
 	}
 
 	BeginWaitCursor();
+
+	int pgcnt = 1;
+
+	if( readFile2Buf(m_srcfp) ) {
+		fptag = openChapFile(fptag, nChap);
+		if(fptag != NULL){
+			_ftprintf(fpMenu, _T("%04d %s\n"), nChap, stmp);
+			nChap++;		// 目前章數加一
+		}
+	}
+	else {
+		AfxMessageBox(_T("Read File 失敗!"));
+		return;
+	}
+
 	//while ( fgets(buf, sizeof(buf), m_srcfp) != NULL )
 	while ( readUnicodeLine(stmp) == TRUE )
 	{
 		if(IsChapterLine(stmp, sChapter) == TRUE) 
 		{
-			static BOOL bFirst = TRUE;
-			static int pgcnt = 1;
-
-			if( (bFirst == TRUE) || (pgcnt >= m_edPgNums) )
+			if( pgcnt >= m_edPgNums )	//控制每幾個章節寫一個檔，預防產生太多檔案
 			{
-				bFirst = FALSE;
-				pgcnt = 1;
-
+				pgcnt = 1;		
+				fptag = openChapFile(fptag, nChap);
 				if(fptag != NULL){
-					fclose(fptag);
-					fptag = NULL;
-				}
-				if(!m_bFullChpName)
-					sChapFName.Format( _T("%s\\%d.txt"), m_DirPath, nChap );
-				else
-					sChapFName.Format( _T("%s\\%04d.txt"), m_DirPath, nChap );
-
-				fptag = _tfopen(sChapFName, _T("wt, ccs=UNICODE"));
-				//fptag = _tfopen(sChapFName, _T("wt"));
-				if(fptag != NULL){
-	//				if(stmp.GetLength() > 50 ) {
-	//					fprintf(fptag, "%s\n", sChapter);
-	//					fprintf(fpMenu, "*** %s\n", sChapter);
-	//				}
-	//				else{
-						_ftprintf(fpMenu, _T("%04d %s\n"), nChap, stmp);
-	//				}
-					
+					_ftprintf(fpMenu, _T("%04d %s\n"), nChap, stmp);
 					nNowChap = nChap++;		// 保留目前章數並將章數加一
 				}
 			}
@@ -339,7 +365,6 @@ void CSplitChaptersDlg::OnOK()
 			else
 				_ftprintf(fptag, _T("%s\n"), stmp);
 		}
-
 		nNowChap = 0;
 	}
 	EndWaitCursor();
@@ -367,7 +392,7 @@ BOOL CSplitChaptersDlg::readUnicodeLine(CString& str)
 	char buf[4096];
 	wchar_t wbuf[4096];
 
-	if(fgets(buf, sizeof(buf), m_srcfp) != NULL)
+	if( m_ib.getLine((unsigned char*)buf, sizeof(buf)) != NULL)
 	{
 		if(m_IsUTF8 == TRUE) {
 			str = ConvertUTF8ToUTF16(buf);

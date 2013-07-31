@@ -8,6 +8,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "Utfbuf.h"
+
 /////////////////////////////////////////////////////////////////////////////
 // CSplitChaptersDlg dialog
 
@@ -18,6 +20,14 @@ public:
 	int m_curPageLen;
 	CString m_DirPath;
 	FILE *	m_srcfp;
+
+	CUtfbuf m_ib;
+
+
+public:
+	BOOL readFile2Buf(FILE* in);
+	FILE* openChapFile(FILE* fptag, int nChap);
+
 
 // Construction
 public:
