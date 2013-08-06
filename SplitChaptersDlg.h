@@ -62,17 +62,17 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	int m_ChapLen;
-	int m_TitleLen;
+	int m_ChapLen;		// 章節前後關鍵字間的允許長度，避免誤判
+	int m_TitleLen;		// 章節含標題名稱的允許長度，避免誤判
 
 	BOOL IsChapterLine(CString &sLine, CString &sChapter);
 	BOOL readUnicodeLine(CString &str);
 	
 	
-	BOOL m_bFullChpName;
+	BOOL m_bFullChpName;	// 判斷每個章節的檔案名稱是否要補滿4位數的檔名
 
-	// 記錄多少章合成一個檔
-	int m_edPgNums;
+	
+	int m_edPgNums;		// 設定多少章合成一個檔
 	BOOL m_IsUTF8;
 	BOOL m_IsUnicode;
 	BOOL m_IsGB;
@@ -82,6 +82,10 @@ public:
 	CString m_ChapBegin;
 	CString m_ChapEnd;
 	BOOL m_IsSameChap;
+
+	BOOL m_IsNumChap;		// 是否為數字章節
+	UINT m_CurChapNum;		// 記錄目前的章節數
+	BOOL m_IsFirstKey;		// 是否限定首字為章節關鍵字
 };
 
 //{{AFX_INSERT_LOCATION}}

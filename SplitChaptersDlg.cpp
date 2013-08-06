@@ -65,7 +65,7 @@ END_MESSAGE_MAP()
 
 CSplitChaptersDlg::CSplitChaptersDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CSplitChaptersDlg::IDD, pParent)
-	, m_ChapLen(10)
+	, m_ChapLen(20)
 	, m_TitleLen(100)
 	, m_bFullChpName(TRUE)
 	, m_edPgNums(1)
@@ -77,6 +77,9 @@ CSplitChaptersDlg::CSplitChaptersDlg(CWnd* pParent /*=NULL*/)
 	, m_ChapBegin(_T("第"))
 	, m_ChapEnd(_T("章"))
 	, m_IsSameChap(TRUE)
+	, m_IsNumChap(FALSE)
+	, m_CurChapNum(0)
+	, m_IsFirstKey(TRUE)
 {
 	//{{AFX_DATA_INIT(CSplitChaptersDlg)
 	m_FilePath = _T("");
@@ -108,6 +111,8 @@ void CSplitChaptersDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDEND, m_ChapEnd);
 	DDV_MaxChars(pDX, m_ChapEnd, 1);
 	DDX_Check(pDX, IDC_CHKSAMECHAP, m_IsSameChap);
+	DDX_Check(pDX, IDC_CK_CPNUM, m_IsNumChap);
+	DDX_Check(pDX, IDC_CK_FSTKEY, m_IsFirstKey);
 }
 
 BEGIN_MESSAGE_MAP(CSplitChaptersDlg, CDialog)
@@ -217,15 +222,32 @@ BOOL CSplitChaptersDlg::IsChapterLine(CString &sLine, CString &sChapter)
 		len = sLine.GetLength();
 		
 		if(m_curPageLen == 0 && len != 0){
-			if(len > 50 ) len = 50;
+			if(len > 30 ) len = 30;
 			sChapter = sLine.Left(len);
 			rc = TRUE;
 		}
 
 		m_curPageLen += len;
 
-		if(m_curPageLen > FIXPAGELENGTH && len == 0){
+		if(m_curPageLen >= FIXPAGELENGTH){
 			m_curPageLen = 0;
+		}
+
+		return rc;
+	}
+	else if(m_IsNumChap)
+	{
+		int cp = _ttoi(sLine);
+
+		if(cp > m_CurChapNum) {
+			sLine.TrimLeft(_T("\t "));
+			sLine.TrimRight(_T("\t "));
+			len = sLine.GetLength();
+			if(len > m_TitleLen ) len = m_TitleLen;
+			sChapter = sLine.Left(len);
+
+			m_CurChapNum = cp;
+			rc = TRUE;
 		}
 
 		return rc;
@@ -236,17 +258,18 @@ BOOL CSplitChaptersDlg::IsChapterLine(CString &sLine, CString &sChapter)
 		cp2 = sLine.Find(m_ChapEnd, cp1);
 	if( cp1 >=0 && (cp2 > cp1) && (cp2-cp1 < m_ChapLen) )
 	{
-		sLine.TrimLeft();
-		sLine.TrimRight();
+		sLine.TrimLeft(_T("\t "));
+		sLine.TrimRight(_T("\t "));
 		cp1 = sLine.Find(m_ChapBegin);
 		cp2 = sLine.Find(m_ChapEnd, cp1);
 
-		//if(cp1 == 0 && sLine.GetLength() < m_TitleLen) {
-		if(sLine.GetLength() < m_TitleLen) {
-			if( !m_IsSameChap || (sPreLine.Left(cp2) != sLine.Left(cp2)) )
+		if((!m_IsFirstKey || cp1 == 0) && (sLine.GetLength() < m_TitleLen))
+		//if(sLine.GetLength() < m_TitleLen) 
+		{
+			if( !m_IsSameChap || (sPreLine.GetLength() < cp2) || (sPreLine.Left(cp2) != sLine.Left(cp2)) )
 			{
 				len = sLine.GetLength();
-				if(len > 50 ) len = 50;
+				if(len > 30 ) len = 30;
 				sPreLine = sLine;
 				sChapter = sLine.Left(len);
 
@@ -351,7 +374,7 @@ void CSplitChaptersDlg::OnOK()
 				pgcnt = 1;		
 				fptag = openChapFile(fptag, nChap);
 				if(fptag != NULL){
-					_ftprintf(fpMenu, _T("%04d %s\n"), nChap, stmp);
+					_ftprintf(fpMenu, _T("%04d %s\n"), nChap, sChapter);
 					nNowChap = nChap++;		// 保留目前章數並將章數加一
 				}
 			}
