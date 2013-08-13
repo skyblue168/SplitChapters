@@ -80,6 +80,7 @@ CSplitChaptersDlg::CSplitChaptersDlg(CWnd* pParent /*=NULL*/)
 	, m_IsNumChap(FALSE)
 	, m_CurChapNum(0)
 	, m_IsFirstKey(TRUE)
+	, m_IsAddNo(FALSE)
 {
 	//{{AFX_DATA_INIT(CSplitChaptersDlg)
 	m_FilePath = _T("");
@@ -113,6 +114,7 @@ void CSplitChaptersDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHKSAMECHAP, m_IsSameChap);
 	DDX_Check(pDX, IDC_CK_CPNUM, m_IsNumChap);
 	DDX_Check(pDX, IDC_CK_FSTKEY, m_IsFirstKey);
+	DDX_Check(pDX, IDC_CK_AddNo, m_IsAddNo);
 }
 
 BEGIN_MESSAGE_MAP(CSplitChaptersDlg, CDialog)
@@ -418,7 +420,7 @@ void CSplitChaptersDlg::OnOK()
 		}
 
 		if(fptag != NULL){
-			if(nNowChap > 0) {
+			if(nNowChap > 0 && m_IsAddNo) {
 				sUnicode.Format(_T("%04d %s\n"), nNowChap, stmp);
 				//_ftprintf(fptag, _T("%04d %s\n"), nNowChap, stmp);
 			}

@@ -87,6 +87,7 @@ public:
 	BOOL m_IsNumChap;		// 是否為數字章節
 	UINT m_CurChapNum;		// 記錄目前的章節數
 	BOOL m_IsFirstKey;		// 是否限定首字為章節關鍵字
+	BOOL m_IsAddNo;
 };
 
 //{{AFX_INSERT_LOCATION}}
