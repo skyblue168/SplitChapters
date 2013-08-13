@@ -27,6 +27,7 @@ public:
 public:
 	BOOL readFile2Buf(FILE* in);
 	FILE* openChapFile(FILE* fptag, int nChap);
+	BOOL writeUTF8File(FILE* fp, const CString& sLine);
 
 
 // Construction
