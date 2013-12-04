@@ -1,0 +1,107 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AFX_SPLITCHAPTERSDLG_H__FEC5F8A0_5BFA_444E_8575_973AB8488F1A__INCLUDED_	.\SplitChaptersDlg.h	5;"	d
+AFX_SPLITCHAPTERS_H__C3FFDAAC_503A_4407_A390_0B99CB961840__INCLUDED_	.\SplitChapters.h	5;"	d
+AFX_STDAFX_H__20020355_BEE8_42FA_A347_4783A845FA23__INCLUDED_	.\StdAfx.h	7;"	d
+BUFFER_MAX_ALLOC_SIZE	.\Utfbuf.cpp	5;"	d	file:
+CAboutDlg	.\SplitChaptersDlg.cpp	/^CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)$/;"	f	class:CAboutDlg
+CAboutDlg	.\SplitChaptersDlg.cpp	/^class CAboutDlg : public CDialog$/;"	c	file:
+CSplitChaptersApp	.\SplitChapters.cpp	/^CSplitChaptersApp::CSplitChaptersApp()$/;"	f	class:CSplitChaptersApp
+CSplitChaptersApp	.\SplitChapters.h	/^class CSplitChaptersApp : public CWinApp$/;"	c
+CSplitChaptersDlg	.\SplitChaptersDlg.cpp	/^CSplitChaptersDlg::CSplitChaptersDlg(CWnd* pParent \/*=NULL*\/)$/;"	f	class:CSplitChaptersDlg
+CSplitChaptersDlg	.\SplitChaptersDlg.h	/^class CSplitChaptersDlg : public CDialog$/;"	c
+CUtfbuf	.\Utfbuf.cpp	/^CUtfbuf::CUtfbuf(size_t un)$/;"	f	class:CUtfbuf
+CUtfbuf	.\Utfbuf.cpp	/^CUtfbuf::CUtfbuf(void)$/;"	f	class:CUtfbuf
+CUtfbuf	.\Utfbuf.h	/^class CUtfbuf$/;"	c
+ConvertUTF8ToUTF16	.\SplitChaptersDlg.cpp	/^CStringW ConvertUTF8ToUTF16( __in const CHAR * pszTextUTF8 )$/;"	f
+DoDataExchange	.\SplitChaptersDlg.cpp	/^void CAboutDlg::DoDataExchange(CDataExchange* pDX)$/;"	f	class:CAboutDlg
+DoDataExchange	.\SplitChaptersDlg.cpp	/^void CSplitChaptersDlg::DoDataExchange(CDataExchange* pDX)$/;"	f	class:CSplitChaptersDlg
+FIXPAGELENGTH	.\SplitChaptersDlg.h	/^	const int FIXPAGELENGTH;$/;"	m	class:CSplitChaptersDlg
+IDC_BTNBROWSE	.\resource.h	11;"	d
+IDC_CHECK1	.\resource.h	23;"	d
+IDC_CHECK2	.\resource.h	28;"	d
+IDC_CHECK4	.\resource.h	26;"	d
+IDC_CHKCPNAME	.\resource.h	15;"	d
+IDC_CHKFIXLENGTH	.\resource.h	20;"	d
+IDC_CHKGB	.\resource.h	19;"	d
+IDC_CHKSAMECHAP	.\resource.h	24;"	d
+IDC_CHKUNICODE	.\resource.h	18;"	d
+IDC_CHKUTF8	.\resource.h	17;"	d
+IDC_CK_AddNo	.\resource.h	29;"	d
+IDC_CK_CPNUM	.\resource.h	25;"	d
+IDC_CK_FSTKEY	.\resource.h	27;"	d
+IDC_EDBEGIN	.\resource.h	21;"	d
+IDC_EDCHAPLEN	.\resource.h	12;"	d
+IDC_EDEND	.\resource.h	22;"	d
+IDC_EDFILEPATH	.\resource.h	10;"	d
+IDC_EDIT2	.\resource.h	13;"	d
+IDC_EDPGNO	.\resource.h	16;"	d
+IDC_EDTITLELEN	.\resource.h	14;"	d
+IDD	.\SplitChaptersDlg.cpp	/^	enum { IDD = IDD_ABOUTBOX };$/;"	e	enum:CAboutDlg::__anon1	file:
+IDD	.\SplitChaptersDlg.h	/^	enum { IDD = IDD_SPLITCHAPTERS_DIALOG };$/;"	e	enum:CSplitChaptersDlg::__anon2
+IDD_ABOUTBOX	.\resource.h	6;"	d
+IDD_SPLITCHAPTERS_DIALOG	.\resource.h	8;"	d
+IDM_ABOUTBOX	.\resource.h	5;"	d
+IDR_MAINFRAME	.\resource.h	9;"	d
+IDS_ABOUTBOX	.\resource.h	7;"	d
+InitInstance	.\SplitChapters.cpp	/^BOOL CSplitChaptersApp::InitInstance()$/;"	f	class:CSplitChaptersApp
+IsChapterLine	.\SplitChaptersDlg.cpp	/^BOOL CSplitChaptersDlg::IsChapterLine(CString &sLine, CString &sChapter)$/;"	f	class:CSplitChaptersDlg
+OnBtnbrowse	.\SplitChaptersDlg.cpp	/^void CSplitChaptersDlg::OnBtnbrowse() $/;"	f	class:CSplitChaptersDlg
+OnCancel	.\SplitChaptersDlg.cpp	/^void CSplitChaptersDlg::OnCancel() $/;"	f	class:CSplitChaptersDlg
+OnInitDialog	.\SplitChaptersDlg.cpp	/^BOOL CSplitChaptersDlg::OnInitDialog()$/;"	f	class:CSplitChaptersDlg
+OnOK	.\SplitChaptersDlg.cpp	/^void CSplitChaptersDlg::OnOK() $/;"	f	class:CSplitChaptersDlg
+OnPaint	.\SplitChaptersDlg.cpp	/^void CSplitChaptersDlg::OnPaint() $/;"	f	class:CSplitChaptersDlg
+OnQueryDragIcon	.\SplitChaptersDlg.cpp	/^HCURSOR CSplitChaptersDlg::OnQueryDragIcon()$/;"	f	class:CSplitChaptersDlg
+OnSysCommand	.\SplitChaptersDlg.cpp	/^void CSplitChaptersDlg::OnSysCommand(UINT nID, LPARAM lParam)$/;"	f	class:CSplitChaptersDlg
+READ_UNIT	.\Utfbuf.h	3;"	d
+THIS_FILE	.\SplitChapters.cpp	/^static char THIS_FILE[] = __FILE__;$/;"	v	file:
+THIS_FILE	.\SplitChapters.cpp	10;"	d	file:
+THIS_FILE	.\SplitChaptersDlg.cpp	/^static char THIS_FILE[] = __FILE__;$/;"	v	file:
+THIS_FILE	.\SplitChaptersDlg.cpp	12;"	d	file:
+UTF8_BOM	.\Utfbuf.cpp	/^static const char UTF8_BOM[] = {0xEF, 0xBB, 0xBF};$/;"	v	file:
+VC_EXTRALEAN	.\StdAfx.h	13;"	d
+_APS_NEXT_COMMAND_VALUE	.\resource.h	36;"	d
+_APS_NEXT_CONTROL_VALUE	.\resource.h	37;"	d
+_APS_NEXT_RESOURCE_VALUE	.\resource.h	35;"	d
+_APS_NEXT_SYMED_VALUE	.\resource.h	38;"	d
+asize	.\Utfbuf.h	/^	size_t asize;			\/* allocated size (0 = volatile buffer) *\/$/;"	m	class:CUtfbuf
+bufgrow	.\Utfbuf.cpp	/^BOOL CUtfbuf::bufgrow(size_t neosz)$/;"	f	class:CUtfbuf
+data	.\Utfbuf.h	/^	unsigned char *data;	\/* actual character data *\/$/;"	m	class:CUtfbuf
+getLine	.\Utfbuf.cpp	/^unsigned char* CUtfbuf::getLine(unsigned char* buf, int blen)$/;"	f	class:CUtfbuf
+isUTF8Head	.\Utfbuf.cpp	/^BOOL CUtfbuf::isUTF8Head()$/;"	f	class:CUtfbuf
+m_ChapBegin	.\SplitChaptersDlg.h	/^	CString m_ChapBegin;$/;"	m	class:CSplitChaptersDlg
+m_ChapEnd	.\SplitChaptersDlg.h	/^	CString m_ChapEnd;$/;"	m	class:CSplitChaptersDlg
+m_ChapLen	.\SplitChaptersDlg.h	/^	int m_ChapLen;		\/\/ 章節前後關鍵字間的允許\長度，避免誤判$/;"	m	class:CSplitChaptersDlg
+m_CurChapNum	.\SplitChaptersDlg.h	/^	UINT m_CurChapNum;		\/\/ 記錄目前的章節數$/;"	m	class:CSplitChaptersDlg
+m_DirPath	.\SplitChaptersDlg.h	/^	CString m_DirPath;$/;"	m	class:CSplitChaptersDlg
+m_FilePath	.\SplitChaptersDlg.h	/^	CString	m_FilePath;$/;"	m	class:CSplitChaptersDlg
+m_IsAddNo	.\SplitChaptersDlg.h	/^	BOOL m_IsAddNo;$/;"	m	class:CSplitChaptersDlg
+m_IsFirstKey	.\SplitChaptersDlg.h	/^	BOOL m_IsFirstKey;		\/\/ 是否限定首字為章節關鍵字$/;"	m	class:CSplitChaptersDlg
+m_IsFixLength	.\SplitChaptersDlg.h	/^	BOOL m_IsFixLength;$/;"	m	class:CSplitChaptersDlg
+m_IsGB	.\SplitChaptersDlg.h	/^	BOOL m_IsGB;$/;"	m	class:CSplitChaptersDlg
+m_IsNumChap	.\SplitChaptersDlg.h	/^	BOOL m_IsNumChap;		\/\/ 是否為數字章節$/;"	m	class:CSplitChaptersDlg
+m_IsSameChap	.\SplitChaptersDlg.h	/^	BOOL m_IsSameChap;$/;"	m	class:CSplitChaptersDlg
+m_IsUTF8	.\SplitChaptersDlg.h	/^	BOOL m_IsUTF8;$/;"	m	class:CSplitChaptersDlg
+m_IsUnicode	.\SplitChaptersDlg.h	/^	BOOL m_IsUnicode;$/;"	m	class:CSplitChaptersDlg
+m_TitleLen	.\SplitChaptersDlg.h	/^	int m_TitleLen;		\/\/ 章節含標題名稱的允許\長度，避免誤判$/;"	m	class:CSplitChaptersDlg
+m_bFullChpName	.\SplitChaptersDlg.h	/^	BOOL m_bFullChpName;	\/\/ 判斷每個章節的檔案名稱是否要補滿4位數的檔名$/;"	m	class:CSplitChaptersDlg
+m_curPageLen	.\SplitChaptersDlg.h	/^	int m_curPageLen;$/;"	m	class:CSplitChaptersDlg
+m_edPgNums	.\SplitChaptersDlg.h	/^	int m_edPgNums;		\/\/ 設定多少章合成一個檔$/;"	m	class:CSplitChaptersDlg
+m_hIcon	.\SplitChaptersDlg.h	/^	HICON m_hIcon;$/;"	m	class:CSplitChaptersDlg
+m_ib	.\SplitChaptersDlg.h	/^	CUtfbuf m_ib;$/;"	m	class:CSplitChaptersDlg
+m_srcfp	.\SplitChaptersDlg.h	/^	FILE *	m_srcfp;$/;"	m	class:CSplitChaptersDlg
+new	.\SplitChapters.cpp	9;"	d	file:
+new	.\SplitChaptersDlg.cpp	11;"	d	file:
+openChapFile	.\SplitChaptersDlg.cpp	/^FILE* CSplitChaptersDlg::openChapFile(FILE* fptag, int nChap)$/;"	f	class:CSplitChaptersDlg
+rdidx	.\Utfbuf.h	/^	size_t rdidx;			\/* keep read offset *\/$/;"	m	class:CUtfbuf
+readFile2Buf	.\SplitChaptersDlg.cpp	/^BOOL CSplitChaptersDlg::readFile2Buf(FILE* in)$/;"	f	class:CSplitChaptersDlg
+readUnicodeLine	.\SplitChaptersDlg.cpp	/^BOOL CSplitChaptersDlg::readUnicodeLine(CString& str)$/;"	f	class:CSplitChaptersDlg
+size	.\Utfbuf.h	/^	size_t size;			\/* size of the string *\/$/;"	m	class:CUtfbuf
+theApp	.\SplitChapters.cpp	/^CSplitChaptersApp theApp;$/;"	v
+unit	.\Utfbuf.h	/^	size_t unit;			\/* reallocation unit size (0 = read-only buffer) *\/$/;"	m	class:CUtfbuf
+writeUTF8File	.\SplitChaptersDlg.cpp	/^BOOL CSplitChaptersDlg::writeUTF8File(FILE* fp, const CString& unicode)$/;"	f	class:CSplitChaptersDlg
+~CUtfbuf	.\Utfbuf.cpp	/^CUtfbuf::~CUtfbuf(void)$/;"	f	class:CUtfbuf
