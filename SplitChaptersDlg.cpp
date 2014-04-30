@@ -4,8 +4,11 @@
 #include "stdafx.h"
 #include "SplitChapters.h"
 #include "SplitChaptersDlg.h"
+#include "DlgRegxEdit.h"
 
 #include <Strsafe.h>
+#include <atlrx.h>
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -81,6 +84,7 @@ CSplitChaptersDlg::CSplitChaptersDlg(CWnd* pParent /*=NULL*/)
 	, m_CurChapNum(0)
 	, m_IsFirstKey(TRUE)
 	, m_IsAddNo(FALSE)
+	, m_RegxStr(_T(""))
 {
 	//{{AFX_DATA_INIT(CSplitChaptersDlg)
 	m_FilePath = _T("");
@@ -115,6 +119,7 @@ void CSplitChaptersDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CK_CPNUM, m_IsNumChap);
 	DDX_Check(pDX, IDC_CK_FSTKEY, m_IsFirstKey);
 	DDX_Check(pDX, IDC_CK_AddNo, m_IsAddNo);
+	DDX_Text(pDX, IDC_EDREGX, m_RegxStr);
 }
 
 BEGIN_MESSAGE_MAP(CSplitChaptersDlg, CDialog)
@@ -124,6 +129,7 @@ BEGIN_MESSAGE_MAP(CSplitChaptersDlg, CDialog)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BTNBROWSE, OnBtnbrowse)
 	//}}AFX_MSG_MAP
+	ON_BN_CLICKED(IDC_BNREGX, &CSplitChaptersDlg::OnBnClickedBnregx)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -210,6 +216,25 @@ HCURSOR CSplitChaptersDlg::OnQueryDragIcon()
 	return (HCURSOR) m_hIcon;
 }
 
+
+
+CAtlRegExp<CAtlRECharTraitsW> reRule;
+
+BOOL RegExpChapterLine(CString &strInput, CString &strRegex)
+{
+	BOOL rc = FALSE;
+
+	CAtlREMatchContext<CAtlRECharTraitsW> mcRule;
+	wchar_t *wt = (wchar_t *)(LPCTSTR)strInput;
+	
+	if( reRule.Match((const ATL::CAtlRegExp<CAtlRECharTraitsW>::RECHAR *)wt,&mcRule))
+	{
+		rc = TRUE;
+	}
+
+	return rc;
+}
+
 BOOL CSplitChaptersDlg::IsChapterLine(CString &sLine, CString &sChapter)
 {
 	static CString sPreLine = _T("");
@@ -217,7 +242,29 @@ BOOL CSplitChaptersDlg::IsChapterLine(CString &sLine, CString &sChapter)
 	int cp1 = -1, cp2 = -1;
 	int len;
 
-	if(m_IsFixLength == TRUE)
+	if(!m_RegxStr.IsEmpty())
+	{
+		sLine.TrimLeft(_T("\t "));
+		sLine.TrimRight(_T("\t "));
+
+		if(sLine.GetLength() < m_TitleLen) 
+		{
+			if( RegExpChapterLine(sLine, m_RegxStr) )
+			{
+				//if( !m_IsSameChap )
+				{
+					len = sLine.GetLength();
+					if(len > 30 ) len = 30;
+					sPreLine = sLine;
+					sChapter = sLine.Left(len);
+
+					rc = TRUE;
+				}
+			}
+		}
+		return rc;
+	}
+	else if(m_IsFixLength == TRUE)
 	{
 		sLine.TrimLeft();
 		sLine.TrimRight();
@@ -241,7 +288,9 @@ BOOL CSplitChaptersDlg::IsChapterLine(CString &sLine, CString &sChapter)
 	{
 		int cp = _ttoi(sLine);
 
-		if(cp > m_CurChapNum) {
+		//if(cp > m_CurChapNum) 
+		if(cp > 0) 
+		{
 			sLine.TrimLeft(_T("\t "));
 			sLine.TrimRight(_T("\t "));
 			len = sLine.GetLength();
@@ -330,7 +379,9 @@ BOOL CSplitChaptersDlg::writeUTF8File(FILE* fp, const CString& unicode)
 
 	int len = WideCharToMultiByte(CP_UTF8, 0, unicode, nLen, NULL, 0, NULL, NULL);
 
-	outb = (char*)malloc(len+1);
+	try
+	{
+	outb = (char*)malloc(len+6);
 	memset(outb, 0, sizeof(outb));
 	int ret = WideCharToMultiByte(CP_UTF8, 0, unicode, nLen, (LPSTR)outb, len, NULL, NULL);
 	outb[ret] = 0;
@@ -338,6 +389,9 @@ BOOL CSplitChaptersDlg::writeUTF8File(FILE* fp, const CString& unicode)
 	fprintf(fp, "%s", outb);
 
 	free(outb);
+	}
+	catch(...) {
+	}
 
 	return TRUE;
 }
@@ -353,8 +407,24 @@ void CSplitChaptersDlg::OnOK()
 	CString sChapter;
 	int nChap = 1;
 	int nNowChap = 0;
+	DWORD ptk, ntk;
 
 	UpdateData();
+	ptk = GetTickCount();
+
+	if( !m_RegxStr.IsEmpty() )
+	{
+		wchar_t *wt = (wchar_t *)(LPCTSTR)m_RegxStr;
+	    
+		REParseError status = reRule.Parse((const ATL::CAtlRegExp<CAtlRECharTraitsW>::RECHAR *)wt);
+	 
+		if (REPARSE_ERROR_OK != status)
+		{
+			AfxMessageBox(_T("正則表達式語法錯誤!"));
+			return;
+		}
+	}
+
 
 	::CreateDirectory(m_DirPath, NULL);
 	m_srcfp = _tfopen(m_FilePath, _T("rt"));
@@ -440,7 +510,9 @@ void CSplitChaptersDlg::OnOK()
 		fclose(fptag);
 		fptag = NULL;
 
-		stmp.Format(_T("共分為 %d 章!!!"), nChap-1);
+		ntk = GetTickCount();
+
+		stmp.Format(_T("共分為 %d 章!!!\n %d sec"), nChap-1, (ntk-ptk)/1000);
 		AfxMessageBox(stmp);
 	}
 	else
@@ -559,7 +631,7 @@ CStringW ConvertUTF8ToUTF16( __in const CHAR * pszTextUTF8 )
         NULL,                   // unused - no conversion done in this step
         0                       // request size of destination buffer, in WCHAR's
         );
-    ATLASSERT( cchUTF16 != 0 );
+    //ATLASSERT( cchUTF16 != 0 );
     if ( cchUTF16 == 0 )
     {
         AtlThrowLastWin32();
@@ -584,7 +656,7 @@ CStringW ConvertUTF8ToUTF16( __in const CHAR * pszTextUTF8 )
         pszUTF16,               // destination buffer
         cchUTF16                // size of destination buffer, in WCHAR's
         );
-    ATLASSERT( result != 0 );
+    //ATLASSERT( result != 0 );
     if ( result == 0 )
     {
         AtlThrowLastWin32();
@@ -595,4 +667,20 @@ CStringW ConvertUTF8ToUTF16( __in const CHAR * pszTextUTF8 )
  
     // Return resulting UTF16 string
     return strUTF16;
+}
+
+void CSplitChaptersDlg::OnBnClickedBnregx()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData();
+
+	CDlgRegxEdit dlg;
+
+	dlg.m_strRegEx = m_RegxStr;
+
+	if( dlg.DoModal() == IDOK ) {
+		m_RegxStr = dlg.m_strRegEx;
+		UpdateData(FALSE);
+	}
+	
 }

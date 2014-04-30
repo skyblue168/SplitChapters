@@ -88,6 +88,8 @@ public:
 	UINT m_CurChapNum;		// 記錄目前的章節數
 	BOOL m_IsFirstKey;		// 是否限定首字為章節關鍵字
 	BOOL m_IsAddNo;
+	CString m_RegxStr;
+	afx_msg void OnBnClickedBnregx();
 };
 
 //{{AFX_INSERT_LOCATION}}
